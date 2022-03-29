@@ -150,6 +150,11 @@ if ( ! class_exists( 'ezTOC_Widget' ) ) {
 			 */
 			if ( ! $post instanceof ezTOC_Post ) return;
 
+			//if ( post_password_required( $post ) ) {
+			//
+			//	return;
+			//}
+
 			/*
 			 * Ensure the ezTOC content filter is not applied when running `the_content` filter.
 			 */
