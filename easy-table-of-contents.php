@@ -8,6 +8,7 @@
  * Author URI: http://connections-pro.com/
  * Text Domain: easy-table-of-contents
  * Domain Path: /languages
+ * Update URI: false
  *
  * Copyright 2021  Steven A. Zahm  ( email : helpdesk@connections-pro.com )
  *
