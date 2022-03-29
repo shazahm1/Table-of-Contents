@@ -543,15 +543,15 @@ add_filter(
 
 		if ( class_exists( 'WooCommerce' ) && FALSE !== stripos( $string, 'woocommerce.php' ) ) {
 
-			/** @noinspection PhpUndefinedFunctionInspection */
-			if ( is_woocommerce() ||
-			     is_shop() ||
-			     is_product_category() ||
-			     is_product_tag() ||
-			     is_cart() ||
-			     is_checkout() ||
-			     is_account_page() ||
-			     is_wc_endpoint_url()
+			if ( ( function_exists( 'is_woocommerce' ) && is_woocommerce() ) ||
+			     ( function_exists( 'is_shop' ) && is_shop() ) ||
+			     ( function_exists( 'is_product_category' ) && is_product_category() ) ||
+			     ( function_exists( 'is_product_tag' ) && is_product_tag() ) ||
+			     ( function_exists( 'is_product' ) && is_product() ) ||
+			     ( function_exists( 'is_cart' ) && is_cart() ) ||
+			     ( function_exists( 'is_checkout' ) && is_checkout() ) ||
+			     ( function_exists( 'is_account_page' ) && is_account_page() ) ||
+			     ( function_exists( 'is_wc_endpoint_url' ) && is_wc_endpoint_url() )
 			) {
 
 				$apply = false;
@@ -560,5 +560,27 @@ add_filter(
 		}
 
 		return $apply;
+	}
+);
+
+/**
+ * Remove
+ * Since 2.0.18
+ */
+add_filter(
+	'ez_toc_strip_shortcodes_tagnames',
+	function( $tags_to_remove ) {
+
+		return array_merge(
+			$tags_to_remove,
+			array(
+				'asa2',
+				'asa2_img',
+				'asa2_collection',
+				'asa2_textlink',
+				'asa2_smart_collection',
+				'asa2_keywords',
+			)
+		);
 	}
 );
