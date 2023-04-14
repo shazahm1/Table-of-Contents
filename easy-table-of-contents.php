@@ -598,12 +598,21 @@ if ( ! class_exists( 'ezTOC' ) ) {
 				return Debug::log()->appendTo( $content );
 			}
 
-			// Bail if post not eligible and widget is not active.
-			$isEligible = self::is_eligible( get_post() );
+			$type = get_post_type( get_the_ID() );
+
+			$isEnabled      = in_array( $type, ezTOC_Option::get( 'enabled_post_types', array() ), true );
+			$isEligible     = self::is_eligible( get_post() );
+			$isWidgetActive = is_string( is_active_widget( false, false, 'ezw_tco' ) );
 
 			Debug::log( 'post_eligible', 'Post eligible.', $isEligible );
 
-			if ( ! $isEligible && ! is_active_widget( false, false, 'ezw_tco' ) ) {
+			// Bail if current post type is not enabled, regardless if a TOC widget is active in a theme sidebar.
+			if ( false === $isEnabled ) {
+
+				return Debug::log()->appendTo( $content );
+
+				// Bail if post not eligible and widget is not active.
+			} elseif ( false === $isEligible && false === $isWidgetActive ) {
 
 				return Debug::log()->appendTo( $content );
 			}
